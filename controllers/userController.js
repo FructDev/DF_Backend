@@ -126,6 +126,18 @@ export const getPendingUsers = async (req, res) => {
   }
 };
 
+// Obtener usuarios pendientes de aprobación o con pago pendiente
+export const getUnpaidUsers = async (req, res) => {
+  try {
+    const users = await User.find({
+      $or: [{ isApproved: false }, { isApproved: true, hasPaid: false }]
+    });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener los usuarios' });
+  }
+};
+
 // Eliminar usuario
 export const deleteUser = async (req, res) => {
   const { userId } = req.params;

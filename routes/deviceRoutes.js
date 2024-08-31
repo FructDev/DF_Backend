@@ -2,6 +2,9 @@ import express from "express";
 import {
   registerDevice,
   getDeviceByIMEI,
+  getUserDevices,
+  updateDeviceStatus,
+  deleteDevice,
 } from "../controllers/deviceController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import { body } from "express-validator";
@@ -24,5 +27,11 @@ router.post(
 
 // Ruta para buscar dispositivo por IMEI
 router.get("/search/:imei", getDeviceByIMEI);
+// Ruta para obtener los dispositivos del usuario logueado
+router.get("/my-devices", authMiddleware, getUserDevices);
+// Cambiar status
+router.patch("/device/:id/status", authMiddleware, updateDeviceStatus);
+// Ruta para eliminar un dispositivo
+router.delete('/device/:id', authMiddleware, deleteDevice);
 
 export default router;

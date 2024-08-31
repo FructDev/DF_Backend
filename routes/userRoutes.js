@@ -4,6 +4,7 @@ import {
   loginUser,
   approveUser,
   getPendingUsers,
+  getUnpaidUsers,
   deleteUser, 
   updatePaymentStatus
 } from "../controllers/userController.js";
@@ -49,6 +50,7 @@ router.post(
 );
 
 router.get("/pending", authMiddleware, adminMiddleware, getPendingUsers);
+router.get("/unpaid", authMiddleware, adminMiddleware, getUnpaidUsers);
 
 // Ruta para aprobar usuario, solo accesible para admins
 router.patch("/approve/:userId", authMiddleware, adminMiddleware, approveUser);
